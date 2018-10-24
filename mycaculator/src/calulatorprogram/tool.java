@@ -1,5 +1,6 @@
 package calulatorprogram;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -16,7 +17,7 @@ public class tool {
 			index.add();
 		}
 	}
-	public static void compute(ArrayList<Character> list,Indexof index, StringBuilder builder , Stack<Double> stack , Double allresult ,Character ch) {
+	public static void compute(ArrayList<Character> list,Indexof index, StringBuilder builder , Stack<BigDecimal> stack , BigDecimal  allresult ,Character ch) {
 		 while(ch!='\0') {
 			 chiose.choseGetresult(chiose.chioseNO(ch), list, index, builder, stack, allresult, ch);				//调用 工厂 策略 选择方法
 			 index.add();

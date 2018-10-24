@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -118,7 +119,7 @@ public class Window<operrator> extends JFrame {
 							   String changestr =computation(list).toString();
 								if(Pattern.compile(StrConfiguration.REGULAR_ONE_DOUBLE).matcher(changestr).find()||
 									Pattern.compile(StrConfiguration.REGULAR_TWO_DOUBLE).matcher(changestr).find()&&
-									!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())
+							    	!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())
 									) {																																//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
 									Sdisply.setText(changestr);	
 							}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
@@ -181,19 +182,18 @@ public class Window<operrator> extends JFrame {
 			Indexof index = new Indexof(0);																									//初始化下标
 			 char ch = list.get(index.getIndex());																							//初始化循环更新变量
 			 StringBuilder builder = new StringBuilder();																				//用于转化String 和 Double;
-			 Stack<Double> stack = new Stack<Double>();																			//栈
-			Double allresult = null ;																													//结果
-			Number tonumber;
+			 Stack<BigDecimal> stack = new Stack<BigDecimal>();																			//栈
+			 BigDecimal allresult = null ;																													//结果
+			 BigDecimal tonumber;
 			tool.compute(list, index, builder, stack, allresult, ch);
 			if(stack.size()==1) {
 			allresult =stack.pop();
-			tonumber = (Number)allresult;
+			tonumber = (BigDecimal)allresult;
 			return tonumber;	
 			}else {
 				return null;
 			}
 		}
-	
 }
 
 

@@ -1,10 +1,11 @@
 package calulatorprogram;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Numbers extends Get {
-	public void getresult(ArrayList<Character> list , Indexof index , StringBuilder builder , Stack<Double> stack , Double allresult ,Character ch) {
+	public void getresult(ArrayList<Character> list , Indexof index , StringBuilder builder , Stack<BigDecimal> stack , BigDecimal allresult ,Character ch) {
 	 
 	while(ch!='#') {
 		if(ch>='0'&&ch<='9'||ch=='%'||ch=='.') {
@@ -20,7 +21,7 @@ public class Numbers extends Get {
 		ch=list.get(index.getIndex());
 		}
 	index.sub();
-	stack.push(new Double(builder.toString()));
+	stack.push(new BigDecimal(builder.toString()));
 	builder.delete(0, builder.length());
 	}
 }
