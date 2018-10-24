@@ -23,7 +23,7 @@ public class tool {
 			 ch = list.get(index.getIndex());
 		 }
 	}
-	public boolean expression (String str) {
+	public static boolean expression (String str) {
 		int Lcount = 0;
 		int Rcount=0;
 		char ch;

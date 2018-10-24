@@ -106,21 +106,21 @@ public class Window<operrator> extends JFrame {
 			container.add(button);
 		}
 	
-																																									//内部类，监听器事件实现；（数字符号，等于符号）
+																																										//内部类，监听器事件实现；（数字符号，等于符号）
 		private class operrator  implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String command = e.getActionCommand();
 				if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {
 					ArrayList<Character> list= changestr(Sdisply.getText()+'\0');										//添加结束标志
-						if(computation(list)!=null) {																							//如果栈中元素等于一就是最后结果；
+						if(computation(list)!=null) {																								//如果栈中元素等于一就是最后结果；
 							Number changenumber = computation(list);
 							   String changestr =computation(list).toString();
 								if(Pattern.compile(StrConfiguration.REGULAR_ONE_DOUBLE).matcher(changestr).find()||
 									Pattern.compile(StrConfiguration.REGULAR_TWO_DOUBLE).matcher(changestr).find()&&
 									!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())
-									) {																															//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
-									Sdisply.setText(changestr);
+									) {																																//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
+									Sdisply.setText(changestr);	
 							}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
 								Sdisply.setText(""+changenumber.intValue());
 						}
@@ -168,7 +168,7 @@ public class Window<operrator> extends JFrame {
 			Stack<Character> stack =new Stack<>();																					//栈
 			Indexof index= new Indexof(0);																									//java 方法参数采用按置传递，变量会清零，固设置为 类的方式；
 			str = builder.charAt(index.getIndex());																						//初始化更新条件
-			index.add();																																	//下标更新
+			index.add();																																		//下标更新
 			tool.handle(stack, list, str, builder, index);
 			tool.clear(stack, list);
 			return list;
@@ -179,9 +179,9 @@ public class Window<operrator> extends JFrame {
 		private Number computation(ArrayList<Character> list) {
 			list.add('\0');																																		//添加结束语句
 			Indexof index = new Indexof(0);																									//初始化下标
-			 char ch = list.get(index.getIndex());																								//初始化循环更新变量
+			 char ch = list.get(index.getIndex());																							//初始化循环更新变量
 			 StringBuilder builder = new StringBuilder();																				//用于转化String 和 Double;
-			 Stack<Double> stack = new Stack<Double>();																				//栈
+			 Stack<Double> stack = new Stack<Double>();																			//栈
 			Double allresult = null ;																													//结果
 			Number tonumber;
 			tool.compute(list, index, builder, stack, allresult, ch);
