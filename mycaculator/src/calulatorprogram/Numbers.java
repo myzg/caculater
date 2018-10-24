@@ -8,7 +8,7 @@ public class Numbers extends Get {
 	 
 	while(ch!='#') {
 		if(ch>='0'&&ch<='9'||ch=='%'||ch=='.') {
-			if(ch=='%') {					//%是负号的特殊处理；
+			if(ch=='%') {																						//%是负号的特殊处理；
 				builder.append('-');
 			}else if(ch=='.') {
 				builder.append(ch);

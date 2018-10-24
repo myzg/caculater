@@ -21,5 +21,6 @@ public  class Decision {
 		}
 		public static void dodispose(Symbol symbol,Stack<Character> stack,ArrayList<Character> list, Character str,String builder,Indexof   index) {
 			symbol.dispose(stack, list, str, builder, index);
+			
 		}
 }

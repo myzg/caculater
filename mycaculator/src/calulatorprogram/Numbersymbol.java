@@ -15,7 +15,6 @@ public class Numbersymbol extends Symbol {
 		//处理后缀表达式中的数字；
 		public void dispose(Stack<Character> stack,ArrayList<Character> list, Character str,String builder,Indexof  index) {
 			while(str>='0'&& str<='9'||str=='.' ) {
-				
 				list.add(str);
 				str  = builder.charAt(index.getIndex());
 				index.add();

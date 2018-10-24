@@ -27,10 +27,7 @@ public class timsymbol extends Symbol {
 		}
 	private boolean isminus(String builder,Indexof  index,Character str) {
 		char leftchar = builder.charAt(index.lnumber());
-		System.out.println("本次字符的上一个"+leftchar);
-		
 		char rightchar = builder.charAt(index.rnumber());
-		System.out.println("本次字符的后一个"+rightchar);
 		if((index.index==2)||(leftchar == '*')||(leftchar == '/' )||(leftchar =='(' )||(leftchar =='+')||(leftchar =='-')&&(rightchar!='('))
 		{
 			return true;
