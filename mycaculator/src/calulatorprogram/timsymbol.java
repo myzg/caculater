@@ -26,6 +26,9 @@ public class timsymbol extends Symbol {
 		}
 		}
 	private boolean isminus(String builder,Indexof  index,Character str) {
+		if(index.getIndex()==1) {
+			return true;
+		}else {
 		char leftchar = builder.charAt(index.lnumber());
 		char rightchar = builder.charAt(index.rnumber());
 		if((index.index==2)||(leftchar == '*')||(leftchar == '/' )||(leftchar =='(' )||(leftchar =='+')||(leftchar =='-')&&(rightchar!='('))
@@ -33,6 +36,7 @@ public class timsymbol extends Symbol {
 			return true;
 		}else{
 		return false;
+		}
 		}
 	}
 }

@@ -46,15 +46,16 @@ public class Window<operrator> extends JFrame {
 			/*
 			 * 设置监听器事件
 			 * */
-			ActionListener listener =new operrator();
-			ActionListener special = new specialoperrator();
+		//	ActionListener listener =new operrator1();
+		//	ActionListener special = new specialoperrator1();
+				ActionListener listener = new commonActionListener();
 			/*
 			 *  为容器添加按钮，事件监听器；
 			 * */
 			addButton(StrConfiguration.BRACKET_LEFT_SYMBOL,listener,Cpanl);													//左括号
 			addButton(StrConfiguration.BRACKET_RIGHT_SYMBOL,listener,Cpanl);												//右括号
-			addButton(StrConfiguration.CLEAR_SYMBOL,special,Cpanl);																		//CE
-			addButton(StrConfiguration.ELIMINATE_SYMBOL,special,Cpanl);							 								// 删除（退后）；
+			addButton(StrConfiguration.CLEAR_SYMBOL,listener,Cpanl);																		//CE
+			addButton(StrConfiguration.ELIMINATE_SYMBOL,listener,Cpanl);							 								// 删除（退后）；
 			
 			addButton(StrConfiguration.SEVEN_NUMBER,listener,Cpanl);																		//7
 			addButton(StrConfiguration.EIGHT_NUMBER,listener,Cpanl);																		//8
@@ -78,10 +79,6 @@ public class Window<operrator> extends JFrame {
 			addButton(StrConfiguration.EQUAL_SYMBOL,listener,Cpanl);																		//=
 			addButton(StrConfiguration.DIV_SYMBOL,listener,Cpanl); 													 						//除号
 			
-			
-			
-			
-			
 			super.add(Sdisply, BorderLayout.NORTH);
 			super.add(Cpanl, BorderLayout.CENTER);
 			setResizable(false); 
@@ -102,59 +99,6 @@ public class Window<operrator> extends JFrame {
 			button.setFocusable(false);
 			container.add(button);
 		}
-	
-																																										//内部类，监听器事件实现；（数字符号，等于符号）
-		private class operrator  implements ActionListener {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String command = e.getActionCommand();
-				if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {
-					ArrayList<Character> list= changestr(Sdisply.getText()+'\0');										//添加结束标志
-						if(computation(list)!=null) {																								//如果栈中元素等于一就是最后结果；
-							Number changenumber = computation(list);
-							   String changestr =computation(list).toString();
-								if(Pattern.compile(StrConfiguration.REGULAR_ONE_DOUBLE).matcher(changestr).find()||
-									Pattern.compile(StrConfiguration.REGULAR_TWO_DOUBLE).matcher(changestr).find()&&
-							    	!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())
-									) {																																//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
-									Sdisply.setText(changestr);	
-							}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
-								Sdisply.setText(""+changenumber.intValue());
-						}
-					}else {																																		//如果栈中元素不等于一就是最后结果；
-						Sdisply.setText("∞");	
-					}
-			}else {																																				//设置‘CE’的监听器事件；
-			if(Sdisply.getText().length()==1) {
-						Sdisply.setText(" ");
-					}
-					StringBuilder builder = new StringBuilder(Sdisply.getText());	
-					builder.append(command);
-					Sdisply.setText(builder.toString());
-				}
-			}	
-		}
-		/*
-		 * 按钮事件监听器，（删除，归零）
-		 * */
-		private class specialoperrator implements ActionListener {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String command = e.getActionCommand();
-				if(command.equals(StrConfiguration.ELIMINATE_SYMBOL)) {
-					StringBuilder builder = new StringBuilder(Sdisply.getText());
-					if(builder.toString().length()==1) {																						//如果显示器中的字符串长度为1，则说明用户没有输入任何信息，设置默认字符；（初始化为‘0’，删除和归零操作设置为‘（空格） ’ ）
-						Sdisply.setText(" ");
-					}else {
-						builder.deleteCharAt(builder.length()-1);
-						Sdisply.setText(builder.toString());
-					}		
-				}else {
-					Sdisply.setText("0");
-				}
-			}
-		} 
 		/*
 		 * 把得到的字符串，处理为后缀表达式；
 		 * */
@@ -190,6 +134,92 @@ public class Window<operrator> extends JFrame {
 				return null;
 			}
 		}
+	private class numbersActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			if((Sdisply.getText().length()==1 && Sdisply.getText().equals(" "))|| (Sdisply.getText().length()==1 && Sdisply.getText().equals("0"))) {
+				Sdisply.setText(" ");
+			}
+			if(command.equals(StrConfiguration.POINT_SYMBOL)) {
+				StringBuilder builder = new StringBuilder(Sdisply.getText());
+				char str = builder.charAt(builder.length() -1);
+				if(!(str<='9' && str>='0') || (builder.length()==1 && !(builder.charAt(0)>='0'&& builder.charAt(0) <='9'))) {
+					builder.append("0");
+					Sdisply.setText(builder.toString());
+				}
+			}
+			StringBuilder builder = new StringBuilder(Sdisply.getText());
+			builder.append(command);
+			Sdisply.setText(builder.toString());
+		}
+	}
+	private class specialoperratorActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			if(command.equals(StrConfiguration.ELIMINATE_SYMBOL)) {
+				StringBuilder builder = new StringBuilder(Sdisply.getText());
+				if(builder.toString().length()==1) {																						//如果显示器中的字符串长度为1，则说明用户没有输入任何信息，设置默认字符；（初始化为‘0’，删除和归零操作设置为‘（空格） ’ ）
+					Sdisply.setText(" ");
+				}else {
+					builder.deleteCharAt(builder.length()-1);
+					Sdisply.setText(builder.toString());
+				}		
+			}else {
+				Sdisply.setText("0");
+			}
+		}
+	}
+	private class operratorActionListener implements ActionListener{																//
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {
+				ArrayList<Character> list= changestr(Sdisply.getText()+'\0');										//添加结束标志
+				System.out.println(list.toString());	
+				if(computation(list)!=null) {																								//如果栈中元素等于一就是最后结果；
+						Number changenumber = computation(list);
+						   String changestr =computation(list).toString();
+							if(!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())) {																																//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
+								Sdisply.setText(changestr);	
+						}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
+							Sdisply.setText(""+changenumber.intValue());
+					}
+				}else {																																		//如果栈中元素不等于一就是最后结果；
+					Sdisply.setText("∞");	
+				}
+		}else {																																			
+				if(Sdisply.getText().length()==1) {
+					Sdisply.setText(" ");
+				}
+				StringBuilder builder = new StringBuilder(Sdisply.getText());	
+				builder.append(command);
+				Sdisply.setText(builder.toString());
+			}
+		}
+	}
+	private class commonActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			ActionListener listener;
+			if(command.equals(StrConfiguration.ADD_SYMBOL)||command.equals(StrConfiguration.SUB_SYMBOL)||command.equals(StrConfiguration.MUL_SYMBOL)
+					||command.equals(StrConfiguration.DIV_SYMBOL)||command.equals(StrConfiguration.EQUAL_SYMBOL)||command.equals(StrConfiguration.BRACKET_LEFT_SYMBOL)
+					||command.equals(StrConfiguration.BRACKET_RIGHT_SYMBOL)) {
+				listener = new operratorActionListener();
+			}else if(command.equals(StrConfiguration.CLEAR_SYMBOL)||command.equals(StrConfiguration.ELIMINATE_SYMBOL)) {
+				listener = new specialoperratorActionListener();
+			}else {
+				listener = new numbersActionListener();
+			}
+			listener.actionPerformed(e);
+		}
+	}
 }
 
 

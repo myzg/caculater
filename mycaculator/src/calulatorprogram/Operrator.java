@@ -24,8 +24,7 @@ public void getresult(ArrayList<Character> list,Indexof index, StringBuilder bui
 		}else if(ch=='/') {
 			BigDecimal mathnumber2 = new BigDecimal(stack.pop().toString());//由于出栈顺序 是与正常相反，固number2先出栈。（这里存在除数的位置问题和被减数的位置问题）
 			BigDecimal mathnumber1 = new BigDecimal(stack.pop().toString());
-			mathnumber1.setScale(8, RoundingMode.HALF_UP);
-			stack.push(mathnumber1.add(mathnumber2));
+			stack.push(mathnumber1.divide(mathnumber2,8,BigDecimal.ROUND_HALF_DOWN));
 		}
 	
 	}
