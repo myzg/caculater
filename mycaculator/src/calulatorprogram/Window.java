@@ -117,7 +117,7 @@ public class Window<operrator> extends JFrame {
 		/*
 		 * 处理后缀表达式，计算出最后结果；
 		 * */
-		private Number computation(ArrayList<Character> list) {
+		private BigDecimal computation(ArrayList<Character> list) {
 			list.add('\0');																																		//添加结束语句
 			Indexof index = new Indexof(0);																									//初始化下标
 			 char ch = list.get(index.getIndex());																							//初始化循环更新变量
@@ -139,7 +139,8 @@ public class Window<operrator> extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			if((Sdisply.getText().length()==1 && Sdisply.getText().equals(" "))|| (Sdisply.getText().length()==1 && Sdisply.getText().equals("0"))) {
+			if((Sdisply.getText().length()==1 && Sdisply.getText().equals(" "))|| (Sdisply.getText().length()==1 && Sdisply.getText().equals("0"))
+					|| (Sdisply.getText().length()==1 &&Sdisply.getText().equals("∞"))) {
 				Sdisply.setText(" ");
 			}
 			if(command.equals(StrConfiguration.POINT_SYMBOL)) {
@@ -163,7 +164,7 @@ public class Window<operrator> extends JFrame {
 			if(command.equals(StrConfiguration.ELIMINATE_SYMBOL)) {
 				StringBuilder builder = new StringBuilder(Sdisply.getText());
 				if(builder.toString().length()==1) {																						//如果显示器中的字符串长度为1，则说明用户没有输入任何信息，设置默认字符；（初始化为‘0’，删除和归零操作设置为‘（空格） ’ ）
-					Sdisply.setText(" ");
+					Sdisply.setText("0");
 				}else {
 					builder.deleteCharAt(builder.length()-1);
 					Sdisply.setText(builder.toString());
@@ -173,28 +174,51 @@ public class Window<operrator> extends JFrame {
 			}
 		}
 	}
-	private class operratorActionListener implements ActionListener{																//
+	private class operratorActionListener implements ActionListener{									
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {
-				ArrayList<Character> list= changestr(Sdisply.getText()+'\0');										//添加结束标志
-				System.out.println(list.toString());	
-				if(computation(list)!=null) {																								//如果栈中元素等于一就是最后结果；
-						Number changenumber = computation(list);
+		if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {												//判断括号数对；
+			System.out.println(Sdisply.getText());
+			if(tool.textexpression(Sdisply.getText())) {
+			ArrayList<Character> list= changestr(Sdisply.getText()+'\0');	
+			 System.out.println(list.toString());																							//添加结束标志	
+			if(tool.expression(list)) {	
+				if(computation(list)!=null) {																									//如果栈中元素等于一就是最后结果；
+					BigDecimal changenumber = computation(list);
 						   String changestr =computation(list).toString();
-							if(!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())) {																																//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
-								Sdisply.setText(changestr);	
+						   System.out.println(changestr);
+							if(!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())||
+									(Pattern.compile(StrConfiguration.REGULAR_TWO_DOUBLE).matcher(changestr).find())
+									) {																															//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
+										StringBuilder builder = new StringBuilder(changestr);
+											if(builder.charAt(builder.length()-1)=='0'&&builder.length()!=1) {
+												while(builder.charAt(builder.length()-1)=='0') {
+												builder.deleteCharAt(builder.length()-1);
+									}
+									Sdisply.setText(builder.toString());
+								}else {
+								Sdisply.setText(changestr);
+								}	
 						}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
 							Sdisply.setText(""+changenumber.intValue());
 					}
 				}else {																																		//如果栈中元素不等于一就是最后结果；
 					Sdisply.setText("∞");	
+					System.out.println("我是一号");
 				}
+			}else {
+				Sdisply.setText("∞");
+				System.out.println("我是2号");
+				}
+		}else {
+			Sdisply.setText("∞");	
+			System.out.println("我是3号");
+		}
 		}else {																																			
-				if(Sdisply.getText().length()==1) {
-					Sdisply.setText(" ");
+				if((Sdisply.getText().length()==1&&Sdisply.getText().equals("∞"))) {
+					Sdisply.setText("0");
 				}
 				StringBuilder builder = new StringBuilder(Sdisply.getText());	
 				builder.append(command);

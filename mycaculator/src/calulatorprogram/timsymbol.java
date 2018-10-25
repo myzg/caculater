@@ -31,7 +31,8 @@ public class timsymbol extends Symbol {
 		}else {
 		char leftchar = builder.charAt(index.lnumber());
 		char rightchar = builder.charAt(index.rnumber());
-		if((index.index==2)||(leftchar == '*')||(leftchar == '/' )||(leftchar =='(' )||(leftchar =='+')||(leftchar =='-')&&(rightchar!='('))
+		
+		if((index.index==1)||(leftchar == '*')||(leftchar == '/' )||(leftchar =='(' )||(leftchar =='+')||(leftchar =='-')&&(((rightchar!='(')&& rightchar!='-')))
 		{
 			return true;
 		}else{

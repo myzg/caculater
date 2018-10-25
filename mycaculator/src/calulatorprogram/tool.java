@@ -24,22 +24,61 @@ public class tool {
 			 ch = list.get(index.getIndex());
 		 }
 	}
-	public static boolean expression (String str) {
-		int Lcount = 0;
-		int Rcount=0;
-		char ch;
-		for(int i  = 0; i< str.length();i++) {
-			ch = str.charAt(i);
+	/*错误类型：1，符号大于等于数字。2数字中出现两个小数点。3括号数量不相等。4除数为0。 5 运算符为0。6 数字小于 1；
+	*
+	*1：符号数量=数字数量-1； 
+	*2：循环排除
+	*3；循环计数比较左括号于右括号
+	*4：移动在Numbers类中 处理；
+	*5：计数运算符；
+	*6
+	*/
+	public static boolean expression (ArrayList<Character> list) {
+		int Lbrackcount=0;																					//左括号计数
+		int Rbrackcount=0;																					//右括号计数
+		int numbercount = 0;																				//数字计数
+		int operratorcount=0;																			//运算符计数
+		
+		for(char ch : list){
 			switch(ch) {
-			case'(':Lcount++;break;
-			case')':Rcount++;break;
+			case'(':Lbrackcount++;break;
+			case')':Rbrackcount++;break;
+			case'#':numbercount++;break;
+			case'+':operratorcount++;break;
+			case'-':operratorcount++;break;
+			case'*':operratorcount++;break;
+			case'/':operratorcount++;break;
 			}
 		}
 		
-		if(Lcount==Rcount) {
-		return true;
+		if(Lbrackcount==Rbrackcount && numbercount>=1 && operratorcount<numbercount) {
+		if(numbercount>1 && numbercount==operratorcount+1) {
+			System.out.println("true1");	
+			return true;
+			}else {
+			System.out.println("true2");
+			return true;}
 		}else {
-		return false;
+			System.out.println("false");
+			return false;
 		}
 	}
+	public static boolean textexpression(String str) {
+		char ch ='@';
+		int Lbrackcount=0;																					//左括号计数
+		int Rbrackcount=0;																					//右括号计数
+		for(int i = 0; i< str.length();i++) {
+			ch = str.charAt(i);
+			switch(ch) {
+			case'(':Lbrackcount++;break;
+			case')':Rbrackcount++;break;
+			}
+		}
+		if(Lbrackcount==Rbrackcount) {
+			 	System.out.println("true3");
+		return true;
+		}else {
+		return false;}
+	}
 }
+	

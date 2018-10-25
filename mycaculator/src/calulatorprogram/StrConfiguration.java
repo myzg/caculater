@@ -24,5 +24,6 @@ public class StrConfiguration {
 		public static final String NINE_NUMBER = "9";
 		public static final String ZERO_NUMBER = "0";
 	
-		public static final String REGULAR_THREE_DOUBLE ="-?\\d+.0+";
+		public static final String REGULAR_THREE_DOUBLE ="^-?[\\d]+.[0]+$";
+		public static final String REGULAR_TWO_DOUBLE ="^-?[\\d]+.[0]+\\d+$";
 }
