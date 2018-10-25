@@ -23,11 +23,7 @@ import javax.swing.SwingConstants;
 public class Window<operrator> extends JFrame {
 		private JButton Sdisply;			//下显示器	
 		private JPanel Cpanl;			//上方容器的下容器
-		private JPanel cols1;			//按键第一排
-		private JPanel cols2;			//按键第二排
-		private JPanel cols3;			//按键第三排
-		private JPanel cols4;			//按键第四排
-		private JPanel cols5;			//按键第五排
+	
 																																																//初始化主窗体
 	public Window() {
 			
@@ -55,32 +51,32 @@ public class Window<operrator> extends JFrame {
 			/*
 			 *  为容器添加按钮，事件监听器；
 			 * */
-			addButton(StrConfiguration.BRACKET_LEFT_SYMBOL,listener,Cpanl);																	//左括号
-			addButton(StrConfiguration.BRACKET_RIGHT_SYMBOL,listener,Cpanl);																//右括号
-			addButton(StrConfiguration.CLEAR_SYMBOL,special,Cpanl);																					//CE
-			addButton(StrConfiguration.ELIMINATE_SYMBOL,special,Cpanl);																			// 删除（退后）；
+			addButton(StrConfiguration.BRACKET_LEFT_SYMBOL,listener,Cpanl);													//左括号
+			addButton(StrConfiguration.BRACKET_RIGHT_SYMBOL,listener,Cpanl);												//右括号
+			addButton(StrConfiguration.CLEAR_SYMBOL,special,Cpanl);																		//CE
+			addButton(StrConfiguration.ELIMINATE_SYMBOL,special,Cpanl);							 								// 删除（退后）；
 			
-			addButton(StrConfiguration.SEVEN_NUMBER,listener,Cpanl);																				//7
-			addButton(StrConfiguration.EIGHT_NUMBER,listener,Cpanl);																					//8
-			addButton(StrConfiguration.NINE_NUMBER,listener,Cpanl);																					//9
-			addButton(StrConfiguration.ADD_SYMBOL,listener,Cpanl);																						//+
+			addButton(StrConfiguration.SEVEN_NUMBER,listener,Cpanl);																		//7
+			addButton(StrConfiguration.EIGHT_NUMBER,listener,Cpanl);																		//8
+			addButton(StrConfiguration.NINE_NUMBER,listener,Cpanl);																		//9
+			addButton(StrConfiguration.ADD_SYMBOL,listener,Cpanl);																			//+
 			
-			addButton(StrConfiguration.FOUR_NUMBER,listener,Cpanl);																					//4
-			addButton(StrConfiguration.FIVE_NUMBER,listener,Cpanl);																					//5
-			addButton(StrConfiguration.SIX_NUMBER,listener,Cpanl);																						//6
-			addButton(StrConfiguration.SUB_SYMBOL,listener,Cpanl);																						//-
+			addButton(StrConfiguration.FOUR_NUMBER,listener,Cpanl);																		//4
+			addButton(StrConfiguration.FIVE_NUMBER,listener,Cpanl);																			//5
+			addButton(StrConfiguration.SIX_NUMBER,listener,Cpanl);																			//6
+			addButton(StrConfiguration.SUB_SYMBOL,listener,Cpanl);																			//-
 			
-			addButton(StrConfiguration.ONE_NUMBER,listener,Cpanl);																					//1
-			addButton(StrConfiguration.TWO_NUMBER,listener,Cpanl);																		 			//2
-			addButton(StrConfiguration.THREE_NUMBER,listener,Cpanl);																				//3
-			addButton(StrConfiguration.MUL_SYMBOL,listener,Cpanl);																						//*
+			addButton(StrConfiguration.ONE_NUMBER,listener,Cpanl	);																			//1
+			addButton(StrConfiguration.TWO_NUMBER,listener,Cpanl);																 			//2
+			addButton(StrConfiguration.THREE_NUMBER,listener,Cpanl);																	//3
+			addButton(StrConfiguration.MUL_SYMBOL,listener,Cpanl);																			//*
 			
 			
 		
-			addButton(StrConfiguration.ZERO_NUMBER,listener,Cpanl);																					//0
-			addButton(StrConfiguration.POINT_SYMBOL,listener,Cpanl);																					//.
-			addButton(StrConfiguration.EQUAL_SYMBOL,listener,Cpanl);																				//=
-			addButton(StrConfiguration.DIV_SYMBOL,listener,Cpanl); 																						//除号
+			addButton(StrConfiguration.ZERO_NUMBER,listener,Cpanl);																		//0
+			addButton(StrConfiguration.POINT_SYMBOL,listener,Cpanl);																		//.
+			addButton(StrConfiguration.EQUAL_SYMBOL,listener,Cpanl);																		//=
+			addButton(StrConfiguration.DIV_SYMBOL,listener,Cpanl); 													 						//除号
 			
 			
 			
@@ -182,8 +178,8 @@ public class Window<operrator> extends JFrame {
 			Indexof index = new Indexof(0);																									//初始化下标
 			 char ch = list.get(index.getIndex());																							//初始化循环更新变量
 			 StringBuilder builder = new StringBuilder();																				//用于转化String 和 Double;
-			 Stack<BigDecimal> stack = new Stack<BigDecimal>();																			//栈
-			 BigDecimal allresult = null ;																													//结果
+			 Stack<BigDecimal> stack = new Stack<BigDecimal>();															//栈
+			 BigDecimal allresult = null ;																											//结果
 			 BigDecimal tonumber;
 			tool.compute(list, index, builder, stack, allresult, ch);
 			if(stack.size()==1) {
