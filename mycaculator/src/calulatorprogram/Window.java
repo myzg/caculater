@@ -22,8 +22,8 @@ import javax.swing.SwingConstants;
 
 public class Window<operrator> extends JFrame {
 		private JButton Sdisply;			//下显示器	
-		private JPanel Cpanl;			//上方容器的下容器
-	
+		private JPanel Cpanl;				//上方容器的下容器
+		
 																																																//初始化主窗体
 	public Window() {
 			
@@ -134,6 +134,7 @@ public class Window<operrator> extends JFrame {
 				return null;
 			}
 		}
+	
 	private class numbersActionListener implements ActionListener {
 
 		@Override
@@ -154,7 +155,8 @@ public class Window<operrator> extends JFrame {
 			StringBuilder builder = new StringBuilder(Sdisply.getText());
 			builder.append(command);
 			Sdisply.setText(builder.toString());
-		}
+			}
+
 	}
 	private class specialoperratorActionListener implements ActionListener{
 
@@ -179,44 +181,53 @@ public class Window<operrator> extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-		if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {												//判断括号数对；
-			System.out.println(Sdisply.getText());
-			if(tool.textexpression(Sdisply.getText())) {
-			ArrayList<Character> list= changestr(Sdisply.getText()+'\0');	
-			 System.out.println(list.toString());																							//添加结束标志	
+	if(command.equals(StrConfiguration.EQUAL_SYMBOL)) {												//判断括号数对；
+	  if(!Sdisply.getText().equals("∞")) {
+		if(tool.textexpression(Sdisply.getText())) {
+			ArrayList<Character> list= changestr(Sdisply.getText()+'\0');											//添加结束标志	
 			if(tool.expression(list)) {	
 				if(computation(list)!=null) {																									//如果栈中元素等于一就是最后结果；
 					BigDecimal changenumber = computation(list);
-						   String changestr =computation(list).toString();
-						   System.out.println(changestr);
-							if(!(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find())||
-									(Pattern.compile(StrConfiguration.REGULAR_TWO_DOUBLE).matcher(changestr).find())
-									) {																															//用正则表达式测试结果为浮点数还是整数，这里为浮点数；
-										StringBuilder builder = new StringBuilder(changestr);
-											if(builder.charAt(builder.length()-1)=='0'&&builder.length()!=1) {
-												while(builder.charAt(builder.length()-1)=='0') {
-												builder.deleteCharAt(builder.length()-1);
+						   String changestr =changenumber.toString();
+							if(Pattern.compile(StrConfiguration.REGULAR_THREE_DOUBLE).matcher(changestr).find()){
+									StringBuilder builder = new StringBuilder(changestr);                                //用正则表达式测试结果为浮点数还是整数，这里为浮点数；
+									if(builder.charAt(builder.length()-1)=='0'&&builder.length()!=1) {
+										while((builder.charAt(builder.length()-1)=='0'&& builder.length()>1)||(builder.charAt(builder.length()-1)=='.'&& builder.length()>1 )) {
+											builder.deleteCharAt(builder.length()-1);
+										}
+										Sdisply.setText(builder.toString());
+									}else {
+									Sdisply.setText(changestr);
 									}
-									Sdisply.setText(builder.toString());
-								}else {
-								Sdisply.setText(changestr);
-								}	
-						}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
+							}else {																																//用正则表达式测试结果为浮点数还是整数，这里为整数;
 							Sdisply.setText(""+changenumber.intValue());
+						}
+					}else {																																		//如果栈中元素不等于一就是最后结果；
+						Sdisply.setText("∞");	
+						System.out.println("1");
 					}
-				}else {																																		//如果栈中元素不等于一就是最后结果；
-					Sdisply.setText("∞");	
-					System.out.println("我是一号");
+				}else {
+					Sdisply.setText("∞");		
+					System.out.println("2");
 				}
 			}else {
-				Sdisply.setText("∞");
-				System.out.println("我是2号");
+		 		Sdisply.setText("∞");
+		 		System.out.println("3");
 				}
 		}else {
-			Sdisply.setText("∞");	
-			System.out.println("我是3号");
+			Sdisply.setText("∞");
+			System.out.println("4");
+		   }	
+		}else if(command.equals(StrConfiguration.BRACKET_LEFT_SYMBOL)||command.equals(StrConfiguration.BRACKET_RIGHT_SYMBOL)) {
+			
+			if(Sdisply.getText().length()==1 && (Sdisply.getText().equals("0")||Sdisply.getText().equals("∞"))) {
+			Sdisply.setText(" ");
+			}
+			StringBuilder builder =new StringBuilder(Sdisply.getText());
+			builder.append(command);
+			Sdisply.setText(builder.toString());
 		}
-		}else {																																			
+		else {																																			
 				if((Sdisply.getText().length()==1&&Sdisply.getText().equals("∞"))) {
 					Sdisply.setText("0");
 				}

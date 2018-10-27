@@ -38,6 +38,7 @@ public class tool {
 		int Rbrackcount=0;																					//右括号计数
 		int numbercount = 0;																				//数字计数
 		int operratorcount=0;																			//运算符计数
+		int  pointercount =0 ;																				//小数点计数
 		
 		for(char ch : list){
 			switch(ch) {
@@ -51,34 +52,55 @@ public class tool {
 			}
 		}
 		
+		char ch='@';
+		
+		for(int i =0;i<list.size();i++) {																//计算每一个数字中的小数点的个数；
+			ch = list.get(i);
+			pointercount=0;
+			while(ch!='#'&& i<list.size()-1) {
+				if(ch=='.')
+				pointercount++;
+				ch = list.get(++i);
+			}
+			if(pointercount>=2) {
+				return false;
+			}
+		}
+		
 		if(Lbrackcount==Rbrackcount && numbercount>=1 && operratorcount<numbercount) {
 		if(numbercount>1 && numbercount==operratorcount+1) {
-			System.out.println("true1");	
-			return true;
+				return true;
 			}else {
-			System.out.println("true2");
-			return true;}
+			return true;
+			}
 		}else {
-			System.out.println("false");
-			return false;
+		return false;	
+		
 		}
 	}
 	public static boolean textexpression(String str) {
 		char ch ='@';
 		int Lbrackcount=0;																					//左括号计数
 		int Rbrackcount=0;																					//右括号计数
+		int Lindex=0;
+		int Rindex=0;
 		for(int i = 0; i< str.length();i++) {
 			ch = str.charAt(i);
 			switch(ch) {
-			case'(':Lbrackcount++;break;
-			case')':Rbrackcount++;break;
+			case'(':Lbrackcount++;Lindex=i; break;
+			case')':Rbrackcount++; Rindex =i;break;
 			}
-		}
+			}
+		if(Rindex<Lindex) {
+			System.out.println("括号位置不对");
+			return false;
+			}
 		if(Lbrackcount==Rbrackcount) {
-			 	System.out.println("true3");
 		return true;
 		}else {
-		return false;}
+			System.out.println("靠数量不对");
+		return false;
+		}
 	}
-}
 	
+}
