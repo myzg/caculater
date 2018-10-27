@@ -92,13 +92,11 @@ public class tool {
 			}
 			}
 		if(Rindex<Lindex) {
-			System.out.println("括号位置不对");
 			return false;
 			}
 		if(Lbrackcount==Rbrackcount) {
 		return true;
 		}else {
-			System.out.println("靠数量不对");
 		return false;
 		}
 	}

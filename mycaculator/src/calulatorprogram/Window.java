@@ -165,7 +165,7 @@ public class Window<operrator> extends JFrame {
 			String command = e.getActionCommand();
 			if(command.equals(StrConfiguration.ELIMINATE_SYMBOL)) {
 				StringBuilder builder = new StringBuilder(Sdisply.getText());
-				if(builder.toString().length()==1) {																						//如果显示器中的字符串长度为1，则说明用户没有输入任何信息，设置默认字符；（初始化为‘0’，删除和归零操作设置为‘（空格） ’ ）
+				if(builder.toString().length()<=1) {																						//如果显示器中的字符串长度为1，则说明用户没有输入任何信息，设置默认字符；（初始化为‘0’，删除和归零操作设置为‘（空格） ’ ）
 					Sdisply.setText("0");
 				}else {
 					builder.deleteCharAt(builder.length()-1);
